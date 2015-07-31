@@ -1,0 +1,33 @@
+
+html 					{ overflow-y:scroll; }
+body 					{ padding-top:50px; }
+#todo-list 				{ margin-bottom:30px; }
+#todo-form 	 			{ margin-bottom:50px; }
+
+.showinline
+{
+    display: inline;
+}
+
+#contactinfo
+{
+    display: none;
+}
+
+#twtr-containerii
+{
+    display: none;
+}
+
+/* Tried to get twtr-button to be visible after hide
+.hide
+{
+    display: none;
+}*/
+
+.img
+{
+    background-color:#000000;
+    height:80px;
+    width: 80px;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="scotchTodo">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hello</title>
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+		#todo-list 				{ margin-bottom:30px; }
+		#todo-form 	 			{ margin-bottom:50px; }
+	</style>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="js/core.js"></script>
+
+</head>
+<body layout="row" ng-controller="mainController">
+
+
+		<!-- HEADER AND TODO COUNT -->
+		<div class="jumbotron text-center">
+			<h1>Kontaktor <span class="label label-info">{{ todos.length }}</span></h1>
+		</div>
+
+		<!-- TODO LIST -->
+		<div id="todo-list" class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				<!-- Phonecat tutorial search ja order prop -->
+				Hae: <input ng-model="query">
+
+				<!-- LOOP OVER THE TODOS IN $scope.todos -->
+				<div class="checkbox" ng-repeat="todo in todos | filter:query | orderBy:orderProp">
+					<label>
+						<input type="checkbox" ng-click="deleteTodo(todo._id)"  > {{ todo.nimi }}
+					</label>
+				</div>
+				<div>
+					<table>
+					<tr ng-repeat="person in todos">
+						<td>{{person.id}}</td>
+						<td>{{person.nimi}}</td>
+
+					</tr>
+					</table>
+				</div>
+
+			</div>
+		</div>
+
+		<md-sidenav class=" md-sidenav-left md-whiteframe-z2"
+					md-component-id="left"
+					md-is-locked-open="$mdMedia('gt-sm')">
+			<md-toolbar class="md-whiteframe-z1">
+				<h1>Kontaktit <span class="label label-info">{{ todos.length }}</span></h1>
+			</md-toolbar>
+			<!-- Phonecat tutorial search ja order prop -->
+			Hae: <input ng-model="query">
+
+			<!-- LOOP OVER THE TODOS IN $scope.todos -->
+			<md-list>
+				<<md-list-item class="md-1-line" ng-repeat="it in todos | filter:query | orderBy:orderProp">
+				<div class="md-list-item-text checkbox">
+						<!--md-button ng-click="mainController.selectUser(it)" ng-class="{'selected' : it === mainController.selected }"-->
+							<input type="checkbox" ng-click="deleteTodo(it._id)"  > {{ it.nimi }}
+						<!--/md-button-->
+				</div>
+
+				</md-list-item>
+
+			</md-list>
+		</md-sidenav>
+
+		<!-- FORM TO CREATE TODOS -->
+		<div id="todo-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
+					</div>
+
+					<!-- createToDo() WILL CREATE NEW TODOS -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+				</form>
+			</div>
+		</div>
+		<!--p>Name: <input type="text" ng-model="name"></p> <p>You wrote: {{ name }}</p-->
+</body>
+</html>

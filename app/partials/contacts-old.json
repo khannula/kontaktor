@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "nimi":"Ville Virtanen",
+    "osoite":
+    [
+      { "katuosoite": "Ojakatu 1" },
+      { "postinro": "33100" },
+      { "kaupunki": "Tampere" }
+    ],
+	"puhelin":
+	[
+		{ "koti": "03-123456" },
+		{ "tyo": "040-555 1234" }
+	],
+	"email": "ville.virtanen@firma.fi"
+  },
+  {
+    "id": "2",
+    "nimi":"Palle Partanen",
+    "osoite":
+    [
+      { "katuosoite": "Keskuskatu 1" },
+      { "postinro": "33200" },
+      { "kaupunki": "Tampere" }
+    ],
+	"puhelin":
+	[
+		{ "koti": "03-223456" },
+		{ "tyo": "0400-555 1234" }
+	],
+	"email": "palle.partanen@firma.com"
+  }
+
+]

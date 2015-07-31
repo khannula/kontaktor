@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="scotchTodo">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Kontaktor</title>
+	<!-- Styles -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link href="css/styles.css" rel="stylesheet">
+
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<!-- REST functions -->
+	<script src="js/core.js"></script>
+	<!-- Own javascript -->
+	<script src="js/myscripts.js"></script>
+
+</head>
+<body ng-controller="mainController">
+
+	<div id="masthead">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					<div class="jumbotron text-center">
+						<h1>Kontaktor <span class="label label-info">4U</span>
+							<p></p>
+							<p class="lead">Pitää yhteyksissä</p>
+						</h1>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="well well-lg">
+						<div class="row">
+							<div class="col-sm-6">
+								<ul class="list-inline">
+									<li><img class="img" ng-src="/pics/angular.jpg" alt="Description" ></li>
+									<li><img class="img" ng-src="/pics/node1.png" alt="Description" ></li>
+								</ul>
+								<!--img src="//placehold.it/180x100" class="img-responsive"-->
+							</div>
+							<div class="col-sm-6">
+								Angular.js, Bootstrap ja Node.js harjoitelma.
+							</div>
+						</div><!--/row-->
+					</div>
+				</div>
+			</div><!--/row-->
+		</div><!--/container-->
+	</div><!--/masthead-->
+
+	<!--main-->
+	<div class="container">
+		<div class="row">
+			<!--left-->
+			<div class="col-md-3" id="leftCol">
+				<h2>Kontaktit <span class="label label-info">{{ todos.length }}</span></h2>
+				<!-- Phonecat tutorial search ja order prop -->
+				Hae: <input ng-model="query">
+
+				<!-- LOOP OVER THE TODOS IN $scope.todos -->
+				<div class="checkbox" ng-repeat="todo in todos | filter:query | orderBy:orderProp">
+					<label>
+						<a href="#contactinfo" ng-click="selectContact(todo)" >{{ todo.nimi }}</a>
+						<!--input type="checkbox" ng-click="selectUser(todo)"  > {{ todo.nimi }}-->
+						<!--input type="checkbox" ng-click="deleteTodo(todo._id)"  > {{ todo.nimi }}-->
+					</label>
+				</div>
+
+			</div><!--/left-->
+
+			<!--right-->
+			<div class="col-md-9">
+				<!--div class="hide" id="contactinfo"-->
+				<div id="contactinfo">
+					<h2 class="showinline" >{{ selected.nimi }} </h2>
+					<img src="http://placehold.it/90x90" class="img-responsive img-circle showinline" alt="">
+
+					<ul class="list-unstyled">
+						<li>{{ selected.katuosoite }}</li>
+						<li>{{ selected.postinro }} {{ selected.kaupunki }}</li>
+						<li>{{ selected.puhelinkoti }}</li>
+						<li>{{ selected.puhelintyo }}</li>
+						<li>{{ selected.email }}</li>
+					</ul>
+					<p>
+					<!-- comment: Works, but cannot retrieve twtr button after hide -->
+						<div id="twtr-containerii">
+							<a class="twitter-follow-button"
+							   href="https://twitter.com/TwitterDev"
+							   data-size="large">
+								Follow @TwitterDev</a>
+						</div>
+					</p>
+					<hr>
+				</div><!--/contactinfo-->
+			<div><!--/right-->
+		</div><!--/row-->
+	</div><!--/container-->
+
+</body>
+</html>

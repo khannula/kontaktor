@@ -1,0 +1,22 @@
+{
+  "name": "Kontaktor",
+  "version": "1.0.0",
+  "authors": [
+    "Kari H <kartahan@gmail.com>"
+  ],
+  "description": "Kontaktilistasovellus",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1"
+  }
+}

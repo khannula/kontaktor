@@ -1,0 +1,17 @@
+{
+  "name": "Kontaktor",
+  "version": "1.0.0",
+  "description": "Kontaktilistasovellus",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "KH",
+  "license": "ISC",
+  "dependencies": {
+    "express"     : "^4.13.0",
+    "morgan"      : "1.2.2",
+    "body-parser" : "~1.5.2",
+    "method-override": "~2.1.2"
+  }
+}

@@ -1,0 +1,33 @@
+[
+  {
+    "id": "1",
+    "nimi": "Ville Virtanen",
+    "katuosoite": "Ojakatu 10",
+    "postinro": "33100",
+    "kaupunki": "Tampere",
+    "puhelinkoti": "03-123456",
+    "puhelintyo": "040-555 1234",
+    "email": "ville.virtanen@firma.fi"
+  },
+  {
+    "id": "2",
+    "nimi": "Palle Partanen",
+    "katuosoite": "Keskuskatu 11 A 12",
+    "postinro": "33200",
+    "kaupunki": "Tampere",
+    "puhelinkoti": "03-123777",
+    "puhelintyo": "040-555 7777",
+    "email": "palle.partanen@firma.fi"
+  },
+  {
+    "id": "3",
+    "nimi": "Petri Mustonen",
+    "katuosoite": "Riekkujantie 777",
+    "postinro": "13500",
+    "kaupunki": "Hämeelinna",
+    "puhelinkoti": "358-3-123888",
+    "puhelintyo": "358-40-555 8888",
+    "email": "petri.mustonen@puulaaki.fi"
+  }
+
+]
