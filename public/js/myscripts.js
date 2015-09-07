@@ -1,7 +1,7 @@
 /**
  * Created by Kari on 29.7.2015.
  */
-
+/*
 window.twttr = (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -28,3 +28,4 @@ twttr.widgets.createFollowButton(
 );
 
 
+*/
