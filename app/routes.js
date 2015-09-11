@@ -59,7 +59,7 @@ module.exports = function(app) {
     // delete a todo
     app.delete('/api/todos/:todo_id', function(req, res) {
 
-        console.log('routes.js: app.delete() ');
+        console.log('routes.js: app.delete() id:' +req.params.todo_id);
         /*
         Todo.remove({
             _id : req.params.todo_id
@@ -74,6 +74,23 @@ module.exports = function(app) {
                 res.json(todos);
             });
         });*/
+        fs.readFile('app/partials/contacts_2_items.json', 'utf8', function (err, data) {
+            console.log('routes.js: fs.readFile() delete ');
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err) {
+                //throw err;
+                console.log('Error fs.readFile(): ' + err);
+                res.send(err);
+            }
+            else {
+                //obj = JSON.parse(data);
+                //res.json(obj);
+                console.log('fs.readFile() GET JSON success! ');
+                console.log('Data: ' + data);
+                res.json(data);
+                //res.send(data); // Pete
+            }
+        });
     });
 
 

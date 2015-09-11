@@ -3,13 +3,14 @@
  */
 
 var app = angular.module('scotchTodo', []);
+var selected = null;
 
 app.controller('mainController',['$scope', '$http', function($scope, $http) {
     $scope.formdata = {};
     $scope.todos = [];
     $scope.orderProp = 'nimi';
 
-    $scope.selected = null;
+    //$scope.selected = null;
     $scope.a = null;
     $scope.b = null;
 
@@ -45,15 +46,37 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
      * @param id
      */
     $scope.deleteTodo = function(id) {
+        console.log('DELETE /api/todos: ' +id);
         $http.delete('/api/todos/' + id)
             .success(function(data) {
-                $scope.todos = data;
+                //$scope.todos = data;
+                $scope.todos = JSON.parse(data);
+                $scope.selected = null;
+                // Hide poista-button and pic circle!!!!!!
+                hideElements();
+                // TODO: poista-button still visible after delete - should be hidden. Code below doesn't work.
+                //setVisible();
                 console.log('Success mainController DELETE /api/todos: ' +data);
             })
             .error(function(data) {
                 console.log('Error mainController DELETE /api/todos: ' + data);
+
             });
     };
+
+    /**
+     * Hide deleted contact info after Ok clicked.
+     */
+    function hideElements()
+    {
+        console.log('hideElements() called ');
+        document.getElementById("selectedPic").style.display = 'none';
+        // TODO: If poista-button hidden it is not visible anymore. Fix this sonehow.
+        //document.getElementById("poistaBtn").style.display = 'none';
+        //$("#poistaBtn").toggle();
+        document.getElementById("myHr").style.display = 'none';
+    }
+
 
     /**
      * Select the current contact and copy json data

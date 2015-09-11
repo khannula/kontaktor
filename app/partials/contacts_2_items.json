@@ -18,17 +18,5 @@
     "puhelinkoti": "03-123777",
     "puhelintyo": "040-555 7777",
     "email": "palle.partanen@firma.fi"
-  },
-  {
-    "id": "3",
-    "nimi": "Petri Mustonen",
-    "katuosoite": "Riekkujantie 777",
-    "postinro": "13500",
-    "kaupunki": "Hämeelinna",
-    "puhelinkoti": "358-3-123888",
-    "puhelintyo": "358-40-555 8888",
-    "email": "petri.mustonen@puulaaki.fi"
   }
-
 ]
-

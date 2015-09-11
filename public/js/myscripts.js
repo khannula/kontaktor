@@ -29,3 +29,11 @@ twttr.widgets.createFollowButton(
 
 
 */
+
+
+function setVisible()
+{
+    console.log('setVisible() called ');
+    //$("#poistaBtn").toggle();
+    document.getElementById("poistaBtn").style.display = 'block';
+}

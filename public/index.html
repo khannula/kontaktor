@@ -65,13 +65,24 @@
 
 				<!-- LOOP OVER THE TODOS IN $scope.todos -->
 				<div class="checkbox" ng-repeat="todo in todos | filter:query | orderBy:orderProp">
+					<script>
+						setVisible();
+					</script>
 					<label>
 						<a href="#contactinfo" ng-click="selectContact(todo)" >{{ todo.nimi }}</a>
 						<!--input type="checkbox" ng-click="selectUser(todo)"  > {{ todo.nimi }}-->
 						<!--input type="checkbox" ng-click="deleteTodo(todo._id)"  > {{ todo.nimi }}-->
 					</label>
 				</div>
-
+				<p>
+					<a href="https://twitter.com/kari" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @kari</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					<!-- For some silly reason the below must be here or contactinfo isn't displayed. -->
+					<div id="twtr-containerii">
+						<a class="twitter-follow-button" href="https://twitter.com/TwitterDev" data-size="large">
+							Follow @TwitterDev</a>
+					</div>
+				</p>
 			</div><!--/left-->
 
 			<!--right-->
@@ -79,7 +90,7 @@
 				<!--div class="hide" id="contactinfo"-->
 				<div id="contactinfo">
 					<h2 class="showinline" >{{ selected.nimi }} </h2>
-					<img src="http://placehold.it/90x90" class="img-responsive img-circle showinline" alt="">
+					<img src="http://placehold.it/90x90" class="img-responsive img-circle showinline" id="selectedPic" alt="">
 
 					<ul class="list-unstyled">
 						<li>{{ selected.katuosoite }}</li>
@@ -88,8 +99,9 @@
 						<li>{{ selected.puhelintyo }}</li>
 						<li>{{ selected.email }}</li>
 					</ul>
+
 					<p>
-						<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Poista</button>
+						<button type="button" id="poistaBtn" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Poista</button>
 					</p>
 
 					<!-- Modal -->
@@ -105,29 +117,15 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>
-									<button type="button" class="btn btn-primary">Ok</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteTodo(selected.id)">Ok</button>
 								</div>
 							</div>
 						</div>
-					</div>
-					<p>
-					<!-- TODO ... -->
-					<a href="https://twitter.com/kari" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @kari</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-					<!-- comment: Works, but cannot retrieve twtr button after hide -->
-						<div id="twtr-containerii">
-						
-							<a class="twitter-follow-button"
-							   href="https://twitter.com/TwitterDev"
-							   data-size="large">
-								Follow @TwitterDev</a>
-						</div>
-					</p>
-					<hr>
+					</div><!--/modal-->
+					<hr id="myHr">
 				</div><!--/contactinfo-->
 			<div><!--/right-->
 		</div><!--/row-->
 	</div><!--/container-->
-
 </body>
 </html>
