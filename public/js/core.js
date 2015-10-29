@@ -42,6 +42,21 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     };
 
     /**
+     * Add new contact to json data
+     */
+    $scope.saveUser = function() {
+        $http.post('/api/todos', $scope.formData)
+            .success(function(data) {
+                $scope.formData = {}; // clear the form
+                $scope.todos = data;
+                console.log('Success mainController POST /api/todos: ' +data);
+            })
+            .error(function(data) {
+                console.log('Error mainController POST /api/todos: ' + data);
+            });
+    };
+
+    /**
      * Delete selected contact from json data
      * @param id
      */
@@ -87,6 +102,8 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
         hideIt();
         $scope.selected = (JSON.parse(JSON.stringify(contact)));
 
+        // copy data to be used in form edit
+        $scope.showEdit();
     }
 
     /**
@@ -106,6 +123,16 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
 
         //$("#contactinfo").removeClass('hide');
 
+    }
+
+    /**
+     * Copy selected contact info to editable form data.
+     */
+    $scope.showEdit = function () {
+        console.log('showEdit() called ');
+        $scope.editableContact = angular.copy($scope.selected);
+        // this works too
+        //$scope.editableContact = $scope.selected.nimi;
     }
 
 } ] );

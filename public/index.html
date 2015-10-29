@@ -102,6 +102,7 @@
 
 					<p>
 						<button type="button" id="poistaBtn" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Poista</button>
+						<button type="button" id="muokkaaBtn" class="btn btn-warning" data-toggle="modal" data-target="#muokkaaModal" ng-click="showEdit(selected)">Muokkaa</button>
 					</p>
 
 					<!-- Modal -->
@@ -122,6 +123,63 @@
 							</div>
 						</div>
 					</div><!--/modal-->
+
+					<!-- Modal -->
+					<div class="modal fade" id="muokkaaModal" tabindex="-1" role="dialog" aria-labelledby="muokkaaModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content" id="modal-content-large">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="muokkaaModalLabel">Muokkaa tietoja</h4>
+									<p>
+									<form>
+										<ul class="list-unstyled">
+											<input type="hidden" ng-model="editableContact.id"/>
+											<li>
+												<label>Nimi:</label>
+												<input type="text" ng-model="editableContact.nimi" required />
+											</li>
+											<li>
+												<label>Katuosoite:</label>
+												<input type="text" ng-model="editableContact.katuosoite" required />
+											</li>
+											<li>
+												<label>Postinro:</label>
+												<input type="text" ng-model="editableContact.postinro" />
+											</li>
+											<li>
+												<label>Kaupunki:</label>
+												<input type="text" ng-model="editableContact.kaupunki" required />
+											</li>
+											<li>
+												<label>Kotipuhelin:</label>
+												<input type="text" ng-model="editableContact.puhelinkoti" required />
+											</li>
+											<li>
+												<label>Työpuhelin:</label>
+												<input type="text" ng-model="editableContact.puhelintyo" required />
+											</li>
+											<li>
+												<label>Sähköposti:</label>
+												<input type="text" ng-model="editableContact.email" required />
+											</li>
+										</ul>
+
+										<!--input type="submit" value="Save" ng-click="saveUser()" /-->
+									</form>
+									</p>
+								</div>
+								<div class="modal-body">
+									Tallenna tiedot painamalla Ok.
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>
+									<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="saveUser(selected)">Ok</button>
+								</div>
+							</div>
+						</div>
+					</div><!--/modal-->
+
 					<hr id="myHr">
 				</div><!--/contactinfo-->
 			<div><!--/right-->
