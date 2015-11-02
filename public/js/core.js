@@ -26,11 +26,17 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
            console.log('Error mainController GET /api/todos: ' +data);
         });
 
+
     /**
      * Add new contact to json data
      */
-    $scope.createTodo = function() {
-        $http.post('/api/todos', $scope.formData)
+    $scope.saveUser = function(contactData) {
+        message = JSON.stringify(contactData);
+        console.log('core.js POST /api/todos ' +message);
+        console.log('NEW contact ');
+
+        //$http.post('/api/todos', $scope.formData)
+        $http.post('/api/todos', contactData)
             .success(function(data) {
                 $scope.formData = {}; // clear the form
                 $scope.todos = data;
@@ -42,17 +48,21 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     };
 
     /**
-     * Add new contact to json data
+     * Modify contact to json data
      */
-    $scope.saveUser = function() {
-        $http.post('/api/todos', $scope.formData)
+    $scope.modifyContact = function(contactData) {
+        message = JSON.stringify(contactData);
+        console.log('core.js POST/MODIFY /api/todos/:id ' +message);
+        console.log('MODIFY contact, id: ' +contactData.id);
+
+        $http.post('/api/todos/' +contactData.id, contactData)
             .success(function(data) {
                 $scope.formData = {}; // clear the form
                 $scope.todos = data;
-                console.log('Success mainController POST /api/todos: ' +data);
+                console.log('Success mainController POST/MODIFY /api/todos: ' +data);
             })
             .error(function(data) {
-                console.log('Error mainController POST /api/todos: ' + data);
+                console.log('Error mainController POST/MODIFY /api/todos: ' + data);
             });
     };
 
