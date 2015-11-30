@@ -53,16 +53,20 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     $scope.modifyContact = function(contactData) {
         message = JSON.stringify(contactData);
         console.log('core.js POST/MODIFY /api/todos/:id ' +message);
-        console.log('MODIFY contact, id: ' +contactData.id);
+        console.log('MODIFY contact, id: ' +contactData._id);
 
-        $http.post('/api/todos/' +contactData.id, contactData)
+        $http.post('/api/todos/' +contactData._id, contactData)
             .success(function(data) {
                 $scope.formData = {}; // clear the form
-                $scope.todos = data;
-                console.log('Success mainController POST/MODIFY /api/todos: ' +data);
+                // FIKSAA - uusi data kaikkialle
+                //$scope.todos = [];
+                //$scope.todos = angular.copy(JSON.stringify(data));
+                $scope.formData = angular.copy(JSON.stringify(data));
+                console.log('Success mainController POST/MODIFY: ' +data);
+                // KOKEILE LÄH get-kysely erikseen!!!!!!
             })
             .error(function(data) {
-                console.log('Error mainController POST/MODIFY /api/todos: ' + data);
+                console.log('Error mainController POST/MODIFY: ' + data);
             });
     };
 

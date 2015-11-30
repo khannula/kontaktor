@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override'); // similate DELETE and PUT (express4)
 
 var mongoose   = require('mongoose');
-var Contact    = require('./app/models/contact');
+//var Contact    = require('./app/models/contact');
 
 server.use(express.static(__dirname + '/public'));
 server.use('/bower_components', express.static( __dirname + '/bower_components'));
@@ -20,7 +20,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.json({ type: 'application/vnd.api+json'})); // Mikä tämä???
 server.use(methodOverride());
 
-//mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/test');
 
 // routes ======================================================================
 require('./app/routes.js')(server);

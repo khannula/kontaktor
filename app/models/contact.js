@@ -5,7 +5,7 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-var ContactSchema   = new Schema({
+var contactSchema   = new Schema({
     nimi: String,
     katuosoite: String,
     postinro: String,
@@ -16,4 +16,4 @@ var ContactSchema   = new Schema({
 
 });
 
-module.exports = mongoose.model('Contact', ContactSchema);
+module.exports = mongoose.model('Contact', contactSchema);
