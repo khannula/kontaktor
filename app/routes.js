@@ -9,7 +9,10 @@ var Contact    = require('./models/contact');
 module.exports = function(app) {
 
 // api ---------------------------------------------------------------------
-    // get all contacts
+
+    /**
+     * Get all contacts
+     */
     app.get('/api/todos', function(req, res) {
 
         console.log('routes.js: app.get() ');
@@ -22,19 +25,21 @@ module.exports = function(app) {
             else {
                 res.json(JSON.stringify(data));
             }
-
         });
     });
 
-    // Create a new contact and send back all contacts after creation
+    /**
+     * Create a new contact and send back all contacts after creation
+     */
     app.post('/api/todos', function(req, res) {
 
         console.log('routes.js: app.post() NEW ');
         console.log(JSON.stringify(req.body));
 
         var newContact = new Contact();
-        newContact.nimi = req.body.nimi; //  ['nimi'];
+        newContact.nimi = req.body.nimi;
         newContact.katuosoite = req.body.katuosoite;
+        newContact.postinro = req.body.postinro;
         newContact.kaupunki = req.body.kaupunki;
         newContact.puhelinkoti = req.body.puhelinkoti;
         newContact.puhelintyo = req.body.puhelintyo;
@@ -47,29 +52,29 @@ module.exports = function(app) {
             }
             else {
                 console.log('Contact created!');
-            }
-        });
-
-        // Send back all connections
-        Contact.find(function(err, data) {
-            if (err) {
-                console.log('Cannot find() ERROR: ', err);
-                res.send(err);
-            }
-            else {
-                res.json(JSON.stringify(data));
+                // Send back all connections
+                Contact.find(function(err, data) {
+                    if (err) {
+                        console.log('Cannot find() ERROR: ', err);
+                        res.send(err);
+                    }
+                    else {
+                        res.json(JSON.stringify(data));
+                    }
+                });
             }
         });
     });
 
-    // Modify contact and send back all contacts after creation
+    /**
+     * Modify contact and send back all contacts after creation
+     */
     app.post('/api/todos/:contact_id', function(req, res) {
 
         console.log('routes.js: app.post() MODIFY ');
         console.log(JSON.stringify(req.body));
         console.log('req.body.id', req.body['_id']);
 
-        //var tcontact = new Contact({});
         // use Contact model to find the contact we want
         Contact.findById(req.body['_id'], function(err, tempContact) {
             if (err) {
@@ -89,7 +94,6 @@ module.exports = function(app) {
                 tempContact.puhelintyo = req.body['puhelintyo'];
                 tempContact.email = req.body['email'];
 
-                //Contact.save(function(err, tempContact, count) {
                 tempContact.save(function (err) {
                     if (err) {
                         console.log('Save ERROR ', err.message);
@@ -98,9 +102,8 @@ module.exports = function(app) {
                         console.log('Save UPDATED! ', tempContact);
                         res.statusCode = 200;
                         res.statusText = 'Ok';
-                        //res.json(JSON.stringify(tempContact));
 
-                        /* send all back*/
+                        // send all back
                         Contact.find(function(err, data) {
                             if (err)
                                 res.send(err);
@@ -118,24 +121,51 @@ module.exports = function(app) {
         });
     });
 
-    // delete contact
-    app.delete('/api/todos/:todo_id', function(req, res) {
+    /**
+     * Delete contact and send back all contacts after creation
+     */
+    app.delete('/api/todos/:contact_id', function(req, res) {
 
-        console.log('routes.js: app.delete() id:' +req.params.todo_id);
-        /* Tuohon tyyliin.
-        Todo.remove({
-            _id : req.params.todo_id
-        }, function(err, todo) {
-            if (err)
+        console.log('routes.js: app.delete() AA id:' +req.params.contact_id);
+        console.log(JSON.stringify(req.body));
+
+        // For some reason this kind of finfById does not work in delete.
+        //Contact.findById(req.body['_id'], function(err, tempContact) {
+
+        Contact.findById(req.params.contact_id, function(err, tempContact) {
+            if (err) {
+                console.log('Delete findById() ERROR: ', err);
                 res.send(err);
+            }
+            else if(tempContact) {
+                // Found - Delete contact
+                console.log('tempContact.nimi ', tempContact.nimi);
 
-            // get and return all the todos after you deleted a todo
-            Todo.find(function(err, todos) {
-                if (err)
-                    res.send(err)
-                res.json(todos);
-            });
-        });*/
+                tempContact.remove(function (err) {
+                    if (err) {
+                        console.log('Delete ERROR ', err.message);
+                    }
+                    else{
+                        console.log('Delete OK! ', tempContact);
+                        res.statusCode = 200;
+                        res.statusText = 'Ok';
+
+                        /* send all back*/
+                        Contact.find(function(err, data) {
+                            if (err)
+                                res.send(err);
+                            res.json(JSON.stringify(data));
+                        });
+                    }
+                });
+            }
+            else{
+                console.log('findOne() in delete not found!');
+                res.statusCode = 404;
+                res.statusText = 'Not found';
+                res.send();
+            }
+        });
 
         /* Just a DEMO, sends shorter list back
         fs.readFile('app/partials/contacts_2_items.json', 'utf8', function (err, data) {
@@ -153,7 +183,6 @@ module.exports = function(app) {
             }
         });*/
     });
-
 
     // application -------------------------------------------------------------
     app.get('*', function(req, res) {

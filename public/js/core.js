@@ -9,8 +9,6 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     $scope.formdata = {};
     $scope.todos = [];
     $scope.orderProp = 'nimi';
-
-    //$scope.selected = null;
     $scope.a = null;
     $scope.b = null;
 
@@ -20,50 +18,45 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     $http.get('/api/todos')
         .success(function(data) {
             $scope.todos = JSON.parse(data);
-            console.log('Success mainController GET /api/todos: ' +data);
+            console.log('Success mainController GET: ' +data);
         })
         .error(function(data) {
-           console.log('Error mainController GET /api/todos: ' +data);
+           console.log('Error mainController GET: ' +data);
         });
 
-
     /**
-     * Add new contact to json data
+     * Add new contact to database
      */
-    $scope.saveUser = function(contactData) {
+    $scope.saveContact = function(contactData) {
         message = JSON.stringify(contactData);
-        console.log('core.js POST /api/todos ' +message);
-        console.log('NEW contact ');
+        console.log('core.js POST NEW contact ' +message);
 
-        //$http.post('/api/todos', $scope.formData)
         $http.post('/api/todos', contactData)
             .success(function(data) {
-                $scope.formData = {}; // clear the form
-                $scope.todos = data;
-                console.log('Success mainController POST /api/todos: ' +data);
+                // Update whole contact list in left column
+                $scope.todos = JSON.parse(data);
+                console.log('Success mainController POST NEW contact: ' +data);
             })
             .error(function(data) {
-                console.log('Error mainController POST /api/todos: ' + data);
+                console.log('Error mainController POST NEW contact: ' + data);
             });
     };
 
     /**
      * Modify contact to json data
      */
-    $scope.modifyContact = function(contactData) {
+    $scope.modifyContact = function(contactData, seldata) {
         message = JSON.stringify(contactData);
         console.log('core.js POST/MODIFY /api/todos/:id ' +message);
         console.log('MODIFY contact, id: ' +contactData._id);
 
         $http.post('/api/todos/' +contactData._id, contactData)
             .success(function(data) {
-                $scope.formData = {}; // clear the form
-                // FIKSAA - uusi data kaikkialle
-                //$scope.todos = [];
-                //$scope.todos = angular.copy(JSON.stringify(data));
-                $scope.formData = angular.copy(JSON.stringify(data));
                 console.log('Success mainController POST/MODIFY: ' +data);
-                // KOKEILE LÄH get-kysely erikseen!!!!!!
+                // Show new data in selection
+                updateSelected(data);
+                // Update whole contact list in left column
+                $scope.todos = JSON.parse(data);
             })
             .error(function(data) {
                 console.log('Error mainController POST/MODIFY: ' + data);
@@ -71,24 +64,46 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     };
 
     /**
-     * Delete selected contact from json data
+     * Show selected contacts with changed data.
+     * @param data
+     */
+    function updateSelected(data) {
+        var data2 = JSON.parse(data);
+        $.each(data2, function(i, item){
+            console.log("Modified is " + i + "|" + item.nimi);
+            if(item._id == $scope.selected._id){
+                console.log("MATCH!! ");
+                $scope.selected.nimi = item.nimi;
+                $scope.selected.katuosoite = item.katuosoite;
+                $scope.selected.postinro = item.postinro;
+                $scope.selected.kaupunki = item.kaupunki;
+                $scope.selected.puhelinkoti = item.puhelinkoti;
+                $scope.selected.puhelintyo = item.puhelintyo;
+                $scope.selected.email = item.email;
+            }
+        });
+    }
+
+    /**
+     * Delete selected contact from database
      * @param id
      */
-    $scope.deleteTodo = function(id) {
-        console.log('DELETE /api/todos: ' +id);
-        $http.delete('/api/todos/' + id)
+    $scope.deleteContact = function(data) {
+        console.log('DELETE id: ' +data._id);
+
+        $http.delete('/api/todos/' +data._id)
             .success(function(data) {
-                //$scope.todos = data;
+                // Update whole contact list in left column
                 $scope.todos = JSON.parse(data);
                 $scope.selected = null;
                 // Hide poista-button and pic circle!!!!!!
                 hideElements();
                 // TODO: poista-button still visible after delete - should be hidden. Code below doesn't work.
                 //setVisible();
-                console.log('Success mainController DELETE /api/todos: ' +data);
+                console.log('Success mainController DELETE: ' +data);
             })
             .error(function(data) {
-                console.log('Error mainController DELETE /api/todos: ' + data);
+                console.log('Error mainController DELETE: ' + data);
 
             });
     };
@@ -106,16 +121,13 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
         document.getElementById("myHr").style.display = 'none';
     }
 
-
     /**
      * Select the current contact and copy json data
      * @param contact
      */
     $scope.selectContact = function( contact ) {
-
         hideIt();
         $scope.selected = (JSON.parse(JSON.stringify(contact)));
-
         // copy data to be used in form edit
         $scope.showEdit();
     }
@@ -130,13 +142,8 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
 
         $scope.a.style.display = "inline";
         $scope.b.style.display = "inline";
-
-        //alert("hideIt() funkkarissa");
-
         //$scope.a.style.display = ($scope.a.style.display == "none") ? "inline" : "none";
-
         //$("#contactinfo").removeClass('hide');
-
     }
 
     /**

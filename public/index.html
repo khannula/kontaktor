@@ -63,15 +63,13 @@
 				<!-- Phonecat tutorial search ja order prop -->
 				Hae: <input ng-model="query">
 
-				<!-- LOOP OVER THE TODOS IN $scope.todos -->
+				<!-- Loop contacts in $scope.todos -->
 				<div class="checkbox" ng-repeat="todo in todos | filter:query | orderBy:orderProp">
 					<script>
 						setVisible();
 					</script>
 					<label>
 						<a href="#contactinfo" ng-click="selectContact(todo)" >{{ todo.nimi }}</a>
-						<!--input type="checkbox" ng-click="selectUser(todo)"  > {{ todo.nimi }}-->
-						<!--input type="checkbox" ng-click="deleteTodo(todo._id)"  > {{ todo.nimi }}-->
 					</label>
 				</div>
 				<p>
@@ -127,8 +125,6 @@
 											<input type="text" ng-model="editableContact.email" required />
 										</li>
 									</ul>
-
-									<!--input type="submit" value="Save" ng-click="saveUser()" /-->
 								</form>
 								</p>
 							</div>
@@ -137,13 +133,11 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>
-								<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="">Ok</button>
-								<!--button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="saveUser(selected)">Ok</button-->
+								<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="saveContact(editableContact, selected)">Ok</button>
 							</div>
 						</div>
 					</div>
 				</div><!--/modal-->
-
 			</div><!--/left-->
 
 			<!--right-->
@@ -179,7 +173,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>
-									<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteTodo(selected.id)">Ok</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteContact(editableContact)">Ok</button>
 								</div>
 							</div>
 						</div>
@@ -225,8 +219,6 @@
 												<input type="text" ng-model="editableContact.email" required />
 											</li>
 										</ul>
-
-										<!--input type="submit" value="Save" ng-click="saveUser()" /-->
 									</form>
 									</p>
 								</div>
@@ -235,8 +227,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>
-									<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="modifyContact(editableContact)">Ok</button>
-									<!--button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="saveUser(selected)">Ok</button-->
+									<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="modifyContact(editableContact, selected)">Ok</button>
 								</div>
 							</div>
 						</div>
