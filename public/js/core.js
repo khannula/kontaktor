@@ -11,6 +11,7 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     $scope.orderProp = 'nimi';
     $scope.a = null;
     $scope.b = null;
+    $scope.showMe = true;
 
     /**
      * Get all contacts from json
@@ -88,18 +89,18 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
      * Delete selected contact from database
      * @param id
      */
-    $scope.deleteContact = function(data) {
+    $scope.deleteContact = function(data, alltodos) {
         console.log('DELETE id: ' +data._id);
 
         $http.delete('/api/todos/' +data._id)
             .success(function(data) {
                 // Update whole contact list in left column
+                // Kha 22.6. not needed?
                 $scope.todos = JSON.parse(data);
+                //$scope.alltodos = JSON.parse(data);
                 $scope.selected = null;
                 // Hide poista-button and pic circle!!!!!!
                 hideElements();
-                // TODO: poista-button still visible after delete - should be hidden. Code below doesn't work.
-                //setVisible();
                 console.log('Success mainController DELETE: ' +data);
             })
             .error(function(data) {
@@ -115,9 +116,6 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
     {
         console.log('hideElements() called ');
         document.getElementById("selectedPic").style.display = 'none';
-        // TODO: If poista-button hidden it is not visible anymore. Fix this sonehow.
-        //document.getElementById("poistaBtn").style.display = 'none';
-        //$("#poistaBtn").toggle();
         document.getElementById("myHr").style.display = 'none';
     }
 
@@ -126,6 +124,7 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
      * @param contact
      */
     $scope.selectContact = function( contact ) {
+        $scope.showMe = true; // Enable Poista button
         hideIt();
         $scope.selected = (JSON.parse(JSON.stringify(contact)));
         // copy data to be used in form edit
@@ -142,8 +141,6 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
 
         $scope.a.style.display = "inline";
         $scope.b.style.display = "inline";
-        //$scope.a.style.display = ($scope.a.style.display == "none") ? "inline" : "none";
-        //$("#contactinfo").removeClass('hide');
     }
 
     /**
@@ -154,6 +151,24 @@ app.controller('mainController',['$scope', '$http', function($scope, $http) {
         $scope.editableContact = angular.copy($scope.selected);
         // this works too
         //$scope.editableContact = $scope.selected.nimi;
+    }
+
+    /**
+     * Clear form before adding new contact
+     */
+    $scope.clearFormdata = function() {
+        $scope.editableContact = null;
+
+        // clear selected data and buttons if visible
+        $scope.selected = null;
+        $scope.myToggleBtn();
+    }
+
+    /**
+     * Toggle Poista and Muokkaa buttons after click
+     */
+    $scope.myToggleBtn = function() {
+        $scope.showMe = !$scope.showMe;
     }
 
 } ] );

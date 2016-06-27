@@ -65,15 +65,15 @@
 
 				<!-- Loop contacts in $scope.todos -->
 				<div class="checkbox" ng-repeat="todo in todos | filter:query | orderBy:orderProp">
-					<script>
+					<!--script>
 						setVisible();
-					</script>
+					</script-->
 					<label>
 						<a href="#contactinfo" ng-click="selectContact(todo)" >{{ todo.nimi }}</a>
 					</label>
 				</div>
 				<p>
-					<button type="button" id="lisaaBtn" class="btn btn-warning" data-toggle="modal" data-target="#lisaaModal">Uusi kontakti</button>
+					<button type="button" id="lisaaBtn" class="btn btn-warning" data-toggle="modal" data-target="#lisaaModal" ng-click="clearFormdata()">Uusi kontakti</button>
 				</p>
 				<p>
 					<a href="https://twitter.com/kari" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @kari</a>
@@ -145,7 +145,7 @@
 				<!--div class="hide" id="contactinfo"-->
 				<div id="contactinfo">
 					<h2 class="showinline" >{{ selected.nimi }} </h2>
-					<img src="http://placehold.it/90x90" class="img-responsive img-circle showinline" id="selectedPic" alt="">
+					<img src="http://placehold.it/90x90" class="img-responsive img-circle showinline" id="selectedPic" alt="" ng-show="showMe">
 
 					<ul class="list-unstyled">
 						<li>{{ selected.katuosoite }}</li>
@@ -156,8 +156,8 @@
 					</ul>
 
 					<p>
-						<button type="button" id="poistaBtn" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Poista</button>
-						<button type="button" id="muokkaaBtn" class="btn btn-warning" data-toggle="modal" data-target="#muokkaaModal" ng-click="showEdit(selected)">Muokkaa</button>
+						<button type="button" id="poistaBtn" class="btn btn-warning" data-toggle="modal" data-target="#myModal" ng-click="myToggleBtn()" ng-show="showMe">Poista</button>
+						<button type="button" id="muokkaaBtn" class="btn btn-warning" data-toggle="modal" data-target="#muokkaaModal" ng-click="showEdit(selected)" ng-show="showMe">Muokkaa</button>
 					</p>
 
 					<!-- Modal -->
@@ -173,7 +173,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>
-									<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteContact(editableContact)">Ok</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteContact(editableContact, todos)">Ok</button>
 								</div>
 							</div>
 						</div>
